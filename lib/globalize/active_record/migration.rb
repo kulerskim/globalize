@@ -71,10 +71,10 @@ module Globalize
         end
 
         def create_translation_table
-          connection.create_table(translations_table_name) do |t|
-            t.references table_name.sub(/^#{table_name_prefix}/, '').singularize, :null => false
-            t.string :locale, :null => false
-            t.timestamps :null => false
+          connection.create_table(translations_table_name, id: primary_key_type) do |t|
+            t.references table_name.sub(/^#{table_name_prefix}/, '').singularize, null: false, type: primary_key_type
+            t.string :locale, null: false
+            t.timestamps null: false
           end
         end
 
@@ -148,6 +148,10 @@ module Globalize
 
         def column_type(name)
           columns.detect { |c| c.name == name.to_s }.try(:type)
+        end
+
+        def primary_key_type
+          column_type(model.primary_key).to_sym
         end
 
         def valid_field_name?(name)
