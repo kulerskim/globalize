@@ -25,4 +25,14 @@ class DestroyTest < MiniTest::Spec
       end
     end
   end
+
+  describe 'when using keep option' do
+    describe '.destroy' do
+      it 'will not remove translations' do
+        category = Category.create(title: 'title')
+        category.destroy
+        assert_equal 1, Category::Translation.count
+      end
+    end
+  end
 end

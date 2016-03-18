@@ -43,6 +43,7 @@ module Globalize
       def apply_globalize_options(options)
         options[:table_name] ||= "#{table_name.singularize}_translations"
         options[:foreign_key] ||= class_name.foreign_key
+        options[:keep] ||= false
 
         class_attribute :translated_attribute_names, :translation_options, :fallbacks_for_empty_translations
         self.translated_attribute_names = []
@@ -72,7 +73,7 @@ module Globalize
 
         has_many :translations, :class_name  => translation_class.name,
                                 :foreign_key => options[:foreign_key],
-                                :dependent   => :destroy,
+                                :dependent   => options[:keep] ? false : :destroy,
                                 :extend      => HasManyExtensions,
                                 :autosave    => true
 
