@@ -14,6 +14,16 @@ ActiveRecord::Schema.define do
     t.string     :title
   end
 
+  create_table :categories, :force => true do |t|
+    t.string     :title
+  end
+
+  create_table :category_translations, :force => true do |t|
+    t.string     :locale
+    t.references :category
+    t.string     :title
+  end
+
   create_table :comments_without_translations, :force => true do |t|
     t.references :article
     t.string     :content
