@@ -44,6 +44,7 @@ module Globalize
         options[:table_name] ||= "#{table_name.singularize}_translations"
         options[:foreign_key] ||= class_name.foreign_key
         options[:keep] ||= false
+        options[:force_touch] ||= false
 
         class_attribute :translated_attribute_names, :translation_options, :fallbacks_for_empty_translations
         self.translated_attribute_names = []

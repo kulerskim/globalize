@@ -33,6 +33,17 @@ ActiveRecord::Schema.define do
     t.string   :blah
   end
 
+  create_table :items, :force => true do |t|
+    t.string   :content
+    t.timestamps null: true
+  end
+
+  create_table :item_translations, :force => true do |t|
+    t.string     :locale
+    t.references :item
+    t.string     :content
+  end
+
   create_table :blogs, :force => true do |t|
     t.string   :description
   end
